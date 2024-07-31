@@ -24,11 +24,11 @@ https://www.youtube.com/watch?v=QR3U1dgc5RE
 
 
 
-작은 공간에서 구현
+작은 공간에서 
 
 ![smallmap](https://github.com/user-attachments/assets/2ead7314-4c27-4754-8250-e97fdfb9ae3b)
 
-큰 공간에서 구현
+큰 공간에서 
 
 ![bigmap](https://github.com/user-attachments/assets/63ef67fc-32de-4a6b-bd84-7fab0e1a32fb)
 
