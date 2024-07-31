@@ -75,7 +75,7 @@ closed된 노드를 open처럼 list로 관리하는게 아니라서 중복 검�
 
  if any(o_node for o_node in open if neighbor == o_node and neighbor.g > o_node.g)
  
-A*를 구현하면서 알게 된 방법. 현재의 neighbor 셀이 이미 open 힙 자료구조에 있던 셀이고 neighbor의 비용이 기존위치의 비용보다 크게 계산되면 그냥 무시하도록 하는 부분.
+A*를 구현하면서 알게 된 최적화 방법. 현재의 neighbor 셀이 이미 open 힙 자료구조에 있던 셀이고 neighbor의 비용이 기존위치의 비용보다 크게 계산되면 그냥 무시하도록 하는 부분.
 if any()와 그 속의 o_node for o_node in open 부분의 쓰임새를 알기까지 시간을 썻다.
 
 
