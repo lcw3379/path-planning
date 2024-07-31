@@ -22,6 +22,17 @@ f(x) = g(x)일 때 다익스트라 알고리즘이 된다고 하니 다익스트
 https://www.youtube.com/watch?v=-L-WgKMFuhE
 https://www.youtube.com/watch?v=QR3U1dgc5RE
 
+작은 공간에서 구현
+
+![smallmap](https://github.com/user-attachments/assets/2ead7314-4c27-4754-8250-e97fdfb9ae3b)
+
+큰 공간에서 구현
+
+![bigmap](https://github.com/user-attachments/assets/63ef67fc-32de-4a6b-bd84-7fab0e1a32fb)
+
+
+
+
 
 단점
 
@@ -46,20 +57,27 @@ https://www.youtube.com/watch?v=QR3U1dgc5RE
 
 
 
-
-
-
-
-
 구현하면서 새로 공부한 파이썬 함수
 
 set()
-중복을 제거하고, 순서가 없는 집합형 자료구조
+중복을 제거하고, 순서가 없는 집합형 자료구조. 
 closed된 노드를 open처럼 list로 관리하는게 아니라서 중복 검색을 방지하고, 새 노드 탐색이 굉장히 빨라짐
 
-# __eq__(), __hash__(),  __lt__()
-
+# __eq__(),   __lt__(), __hash__()
+ Node 클래스 내부에서 정의하는 함수들인데, 이 노드들을 heapq에 넣고 서로 비교하기 위해서 사용된 함수들이다.
+ 
  __eq__()
  클래스에서 두 객체들이 같은지 확인하는 함수
-
+ 
+ __lt__()
+ less than의 뜻. 어떤게 더 작은지 비교하는 함수
+ 
  __hash__()
+ 노드의 해시값을 계산해서 set()등의 자료구조에서 사용할 수 있게 만든다.
+
+# if any(o_node for o_node in open if neighbor == o_node and neighbor.g > o_node.g)
+A*를 구현하면서 알게 된 방법. 현재의 neighbor 셀이 이미 open 힙 자료구조에 있던 셀이고 neighbor의 비용이 기존위치의 비용보다 크게 계산되면 그냥 무시하도록 하는 부분.
+if any()와 그 속의  o_node for o_node in open 부분의 쓰임새를 알기까지 시간을 썻다.
+
+
+
