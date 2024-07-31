@@ -22,3 +22,12 @@ f(x) = g(x)일 때 다익스트라 알고리즘이 된다고 하니 다익스트
 A* 알고리즘을 보여주는 가장 좋은 예시라고 생각한다.
 https://www.youtube.com/watch?v=-L-WgKMFuhE
 https://www.youtube.com/watch?v=QR3U1dgc5RE
+
+
+단점
+
+두 번째 영상에서 볼 수 있듯이, 그리드의 크기가 커질수록 탐색해야 하는 범위가 기하급수적으로 늘어나다 보니 탐색에 큰 시간이 걸린다.
+
+따라서 로봇공학에서는 RRT와 RRT* 알고리즘을 Path Planning에 주로 사용하는 것으로 보인다.
+
+## 2. RRT
