@@ -17,7 +17,7 @@ pygame을 사용하여 시각화 하였다. 첫 번째 영상처럼 수평/수�
 
 
  
-해당 영상들은 격자 공간에서 A* 알고리즘을 보여주는 가장 좋은 예시라고 생각한다.
+유튜브의 영상이 알고리즘 이해에 큰 도움이 되었다. 해당 영상들은 격자 공간에서 A* 알고리즘을 보여주는 가장 좋은 예시라고 생각한다.
 
 https://www.youtube.com/watch?v=-L-WgKMFuhE  <br/>
 https://www.youtube.com/watch?v=QR3U1dgc5RE  
