@@ -55,6 +55,12 @@ https://www.youtube.com/watch?v=QR3U1dgc5RE
 
 처음엔 4번 과정에서 삼각비를 이용하여 생성했는데, step_size보다 작은 노드가 생성되는 경우가 많아 steer() 함수로 변경하여 랜덤 노드가 어떤 곳에 위치하던 step_size만큼의 위치에 새 노드가 생성되게 하였다. 
 
+![rrt](https://github.com/user-attachments/assets/63f913eb-822b-4181-9e63-6e7fb5d1327a)
+
+구현 모습이다. end_node를 찾으면 end_node부터 부모 노드를 차례대로 올라가며 start_node에 닿는다.
+
+
+
 구현하면서 새로 공부한 파이썬 함수
 
 set()<br/>
