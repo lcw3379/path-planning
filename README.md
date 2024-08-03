@@ -107,6 +107,9 @@ Path planning은 Global planning과 Local planning의 두 종류로 나뉜다.<b
     4. 목적함수 평가
     5. 최적의 속도와 각속도 선정  
 
+유튜브에서 작동 영상을 미리 확인하는게 알고리즘 이해와 시각화에 큰 도움이 되었다.<br/>
+https://www.youtube.com/watch?v=Y14CAtCNBDE
+
 1번의 속도 범위를 생성할 때에는 해당 공식을 이용한다.<br/>
 ![image](https://github.com/user-attachments/assets/b14c49cc-9c87-4b78-8289-4fd87a56faa9)
 
@@ -114,6 +117,30 @@ Path planning은 Global planning과 Local planning의 두 종류로 나뉜다.<b
 [Wmin, Wmax] = [W-αmax*dt, W+αmax*dt]<br/>
 
 이 때, 로봇의 + 방향 최대가속도와 -방향 최대가속도는 같다고 가정하였다. 각가속도 또한 마찬가지다.
+
+
+목적함수를 평가할 때는 다음 식을 사용한다.
+
+
+![daw2](https://github.com/user-attachments/assets/139ec641-5db8-4e3b-803c-926fda18f67a)
+
+
+구현 모습이다. 시각화를 위해서 위의 유튜브 영상과 같이, 샘플링한 궤적은 노란색, 장애물과 충돌하는 궤적은 파란색, 최적의 궤적은 빨간색으로 설정하였다.
+
+장애물과 완전히 근접해 있을 시에 조금씩 멈추는 현상이 있다. 
+
+개선할 점
+
+로봇
+
+## 5. Gloabl Planning과 Local Planning 결합
+
+Global Path Planning인  A*, RRT, RRT*와 Local Path Planning인 DWA를 구현하였다.
+
+ROS2 의 네비게이션 패키지 등 현재 로봇 네비게이션 시스템에는 Global Planning과 Local Planning을 합친 시스템을 사용하는 것으로 보인다.
+
+따라서 마지막으로 Global Planning과 Local Planning을 결합하여 
+
 
 구현하면서 새로 공부한 파이썬 함수
 
@@ -139,5 +166,7 @@ closed된 노드를 open처럼 list로 관리하는게 아니라서 중복 검�
 A*를 구현하면서 알게 된 최적화 방법. 현재의 neighbor 셀이 이미 open 힙 자료구조에 있던 셀이고 neighbor의 비용이 기존위치의 비용보다 크게 계산되면 그냥 무시하도록 하는 부분.
 if any()와 그 속의 o_node for o_node in open 부분의 쓰임새를 알기까지 시간을 썻다.
 
+DWA에서, robot_states라는 로봇의 상태를 저장하는 np.array형 변수가 있는데 이걸 여기저기 함수에 넣어서 사용했더니 calc_trajectory 함수에서 robot_state의 결과에 영향을 주기 시작했다. 
+해결법으로 np.copy(robot_states)로 robot_states를 그대로 집어넣지 않고 복사해서 해결하였다. 오류의 원인과 해결법을 알 때까지 시간을 꽤 사용했다..
 
 
