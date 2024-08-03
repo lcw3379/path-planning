@@ -89,6 +89,10 @@ step_size와 search_radius를 더 크게 조절하면 부드러운 path 생성�
 
 이외에도 목적 지점에서도 랜덤 트리를 생성하여 시작지점에서 뻗어나온 트리와 만나면 path를 생성하는 알고리즘 등 여러 RRT*의 변형 알고리즘이 나온 것으로 보인다.
 
+하지만 한 가지 의문점이 생겼다.
+
+RRT* 로도 최적화에 시간이 조금 걸리는데, 차라리 고해상도 공간을 일정 크기의 그리드로 나누어서 A* 알고리즘을 사용하는게 더 좋지 않을까?
+
 
 ## 4. Dynamic Window Approach (DWA)
 
@@ -135,7 +139,7 @@ https://www.youtube.com/watch?v=Y14CAtCNBDE
 
 ## 5. Gloabl Planning과 Local Planning 결합
 
-Global Path Planning인  A*, RRT, RRT*와 Local Path Planning인 DWA를 구현하였다.
+지금까지 Global Path Planning인 A*, RRT, RRT*와 Local Path Planning인 DWA를 구현하였다.
 
 ROS2 의 네비게이션 패키지 등 현재 로봇 네비게이션 시스템에는 Global Planning과 Local Planning을 합친 시스템을 사용하는 것으로 보인다.
 
