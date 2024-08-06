@@ -29,7 +29,7 @@ https://www.youtube.com/watch?v=QR3U1dgc5RE
 
 ![smallmap](https://github.com/user-attachments/assets/2ead7314-4c27-4754-8250-e97fdfb9ae3b)
 
-작은 공간에서 첫 번째 영상의 예시대로 구현해 보았다. 루프에 딜레이를 걸어 작동원리가 잘 보이게 하였다.
+작은 공간에서 첫 번째 영상의 예시대로 구현해 보았다. 
 
 
 ![bigmap](https://github.com/user-attachments/assets/63ef67fc-32de-4a6b-bd84-7fab0e1a32fb)
