@@ -97,6 +97,8 @@ step_size와 search_radius를 더 크게 조절하면 부드러운 path 생성�
 
 ## 4. Dynamic Window Approach (DWA)
 
+출처 : https://jkimst.org/journal/view.php?doi=10.9766/KIMST.2021.24.1.061
+
 Path planning은 Global planning과 Local planning의 두 종류로 나뉜다.<br/>
 앞에서 구현한 알고리즘들은 global planning에 해당한다. 로봇의 시작 위치에서 목적지까지의 전체적인 경로를 설정하는 역할이다.
 
@@ -124,31 +126,34 @@ https://www.youtube.com/watch?v=Y14CAtCNBDE
 
 이 때, 로봇의 + 방향 최대가속도와 -방향 최대가속도는 같다고 가정하였다. 각가속도 또한 마찬가지다.
 
+Dynamic Window에서 위에서 구한 식과, 기존 로봇의 최대속도/최대각속도를 비교해서 최대속도/최대각속도를 넘지 않도록 한다. 공식에선 이렇게 나타냈다.
 
-목적함수를 평가할 때는 다음 식을 사용한다.
+$Vr = Vs \cap Va \cap Vd$
 
+
+목적함수로 각 궤적을 평가할 때는 다음 식을 사용한다.
+
+$G(v,w) = α \times heading(v,w) + β \times clearance(v,w) + γ \times velocity(v,w)$
+
+heading은 궤적이 목표지점까지 얼마나 가까운지를 나타낸다.
+
+clearance는 궤적이 장애물과 가장 가까운 거리로 우회한다. 단, 장애물과 부딫히는 궤적은 비용을 매우 크게 줘서 충돌을 방지한다.
+
+velocity는 취할 수 있는 가장 높은 속도를 선택한다고 한다.
+
+
+
+이때 α, β, γ는 가중치 이다.
 
 ![daw2](https://github.com/user-attachments/assets/139ec641-5db8-4e3b-803c-926fda18f67a)
 
 
 구현 모습이다. 시각화를 위해서 위의 유튜브 영상과 같이, 샘플링한 궤적은 노란색, 장애물과 충돌하는 궤적은 파란색, 최적의 궤적은 빨간색으로 설정하였다.
 
-장애물과 완전히 근접해 있을 시에 조금씩 멈추는 현상이 있다. 
-
-개선할 점
-
-로봇
-
-## 5. Gloabl Planning과 Local Planning 결합
-
-지금까지 Global Path Planning인 A*, RRT, RRT*와 Local Path Planning인 DWA를 구현하였다.
-
-ROS2 의 네비게이션 패키지 등 현재 로봇 네비게이션 시스템에는 Global Planning과 Local Planning을 합친 시스템을 사용하는 것으로 보인다.
-
-따라서 마지막으로 Global Planning과 Local Planning을 결합하여 
+장애물과 완전히 근접해 있을 시에 조금씩 멈추는 현상이 있다. 또한 best_vw를 생성하지 못하면 바로 종료된다. 더 개선해야겠다.
 
 
-구현하면서 새로 공부한 파이썬 함수
+# 구현하면서 새로 공부한 파이썬 함수
 
 set()<br/>
 중복을 제거하고, 순서가 없는 집합형 자료구조. <br/>
