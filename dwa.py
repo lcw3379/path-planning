@@ -38,7 +38,6 @@ colors = {
     "best_trajectory": (255, 0, 0)
 }
 
-
 def distance(a, b):
     return math.sqrt((a[0] - b[0])**2+(a[1] - b[1])**2) # 예시엔 -로했네
  
@@ -84,7 +83,6 @@ def motion(x, u, dt):
     x[4] = u[1]
     return x
 
-
 def calc_trajectory(robot_states, v, omega):
     trajectory = np.array(robot_states)
     delta_t = dt 
@@ -95,8 +93,6 @@ def calc_trajectory(robot_states, v, omega):
         time += dt
     return trajectory 
       
-
-
 def objective_function(trajectory, end, obstacles): # 평가 함수. 목적함수가 최소가 되는 v,w쌍 찾기
     heading = distance(trajectory[-1],end)
     clearance = 0
