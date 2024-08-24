@@ -164,7 +164,7 @@ https://www.youtube.com/watch?v=zU9DxmNZ1ng
 
 이후 추가적인 공부는 여러 블로그와 KOCW 강의를 참고하였다.
 
-동역학 모델은 Kinematic Bicycle Model을 먼저 적용해보고, 이후에 질량과 관성을 추가한 Dynamic Bicycle Model을 적용하였다.
+동역학 모델은 Dynamic Bicycle Model을 적용하였다.
 
 https://www.youtube.com/watch?v=6fyUnoRxPvs
 
@@ -195,17 +195,11 @@ DWA의 구현엔 동역학 모델이 필요하지 않았다.
 
 하지만 MPPI는 모든 랜덤한 샘플링 궤적의 가중치 합으로 새로운 최적 제어값 u를 계산한다.
 
-![mppi3](https://github.com/user-attachments/assets/afa9124d-cbfb-46a1-b3dc-254c4b669288)
-
-
-Kinematic Bicycle Model 적용
-
-
 
 ![mppi_dbm](https://github.com/user-attachments/assets/e01bda3e-21cb-4293-ae15-73d8651f1013)
 
 
-Dynamic Bicycle Model 적용
+Dynamic Bicycle Model을 적용한 모습.
 
 정해진 path를 하나하나 나아가면서 장애물을 회피하는 본래의 목적은 어느정도 달성했지만 추가적인 개선이 좀 필요해 보인다.
 
