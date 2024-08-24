@@ -99,7 +99,7 @@ step_size와 search_radius를 더 크게 조절하면 부드러운 path 생성�
 
 출처 : https://jkimst.org/journal/view.php?doi=10.9766/KIMST.2021.24.1.061
 
-Path planning은 Global planning과 Local planning의 두 종류로 나뉜다.<br/>
+Motion planning(path planning)은 Global planning과 Local planning의 두 종류로 나뉜다.<br/>
 앞에서 구현한 알고리즘들은 global planning에 해당한다. 로봇의 시작 위치에서 목적지까지의 전체적인 경로를 설정하는 역할이다.
 
 그와 다르게 local planning은 로봇이 이동하면서 기존에 없던 장애물이 새로 생기는 등의 동적 상황을 해결하기 위한 플랜이다.
