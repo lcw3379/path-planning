@@ -108,12 +108,12 @@ Path planning은 Global planning과 Local planning의 두 종류로 나뉜다.<b
 
 작동 방식은 다음과 같다.
 
-    1. 현재 속도, 각속도로 가능한 속도 범위 생성
-    2. dynamic window 생성. 로봇의 가속도, 각속도 등과 장애물 충돌 등을 고려
-    3. 속도 샘플링
-    4. 샘플링한 속도들에 대해서 가상 궤적 생성
-    4. 각 궤적들을 목적함수로 평가
-    5. 최적의 속도와 각속도 선정  
+ 1. 현재 속도, 각속도로 가능한 속도 범위 생성
+ 2. dynamic window 생성. 로봇의 가속도, 각속도 등과 장애물 충돌 등을 고려
+ 3. 속도 샘플링
+ 4. 샘플링한 속도들에 대해서 가상 궤적 생성
+ 4. 각 궤적들을 목적함수로 평가
+ 5. 최적의 속도와 각속도 선정  
 
 유튜브에서 작동 영상을 미리 확인하는게 알고리즘 이해와 시각화에 큰 도움이 되었다.<br/>
 https://www.youtube.com/watch?v=Y14CAtCNBDE
@@ -154,7 +154,81 @@ velocity는 취할 수 있는 가장 높은 속도를 선택한다.
 
 또한 장애물의 위치를 이미 다 인식하고 있다고 가정하기 때문에 먼 거리에서부터 장애물을 회피하려는 움직임이 보였다. 실제 환경에서 적용할 때엔 센서를 통해서 실시간으로 장애물을 인식하는 방법이 새로 필요하겠다.
 
-이후 DWA를 GAZEBO 환경으로 옮겨 시뮬레이션을 진행하는 한편, 다른 local planning 알고리즘 중 하나인 MPPI를 구현하였다. 여기서부턴 내용이 너무 길어져 다른 레포지토리에 정리하였다.
+
+# Model Predictive Path Integral Control (MPPI)
+
+Model Predictive Control 에 path intergral을 접목한 방식으로, 구현하려면 로봇의 동역학 모델과 MPC에 대한 지식이 필요했다.
+
+기본적인 내용은 유튜브의 제어조교 영상을 보았다.<br/>
+https://www.youtube.com/watch?v=dP8yzkznnK8
+
+https://www.youtube.com/watch?v=zU9DxmNZ1ng
+
+이후 추가적인 공부는 여러 블로그와 KOCW 강의를 참고하였다.
+
+동역학 모델은 Kinematic Bicycle Model을 먼저 적용해보고, 이후에 질량과 관성을 추가한 Dynamic Bicycle Model을 적용하였다.
+
+https://www.youtube.com/watch?v=6fyUnoRxPvs
+
+
+논문에서의 pseudo code는 다음과 같다.
+
+![12412ed21ed21d1d](https://github.com/user-attachments/assets/9f5a4180-dfa0-4e91-a5c0-e01509a86f64)
+
+
+즉, 구현 방식은
+
+  1. 변수 초기화, 로봇의 동역학 모델 로드
+  2. 여러 랜덤한 제어 입력 u 생성
+  3. 랜덤한 제어입력 u로 N개의 미래 time_step을 가진 sampling_numbers만큼의 가상 궤적 생성
+  4. 각 가상 궤적을 비용함수로 평가
+  5. 가중치 계산
+  6. 가중치를 토대로 최적 제어입력 계산
+  7. 로봇에 최적 제어입력 반영
+  8. 2번부터 반복
+
+DWA와 MPPI 모두 가상 궤적을 샘플링한 다음 N time step 만큼의 미래 시간을 예측해서 최적의 경로를 찾는다. 비용함수도 둘이 매우 비슷하지만, 세부적인 사항은 꽤나 달랐다.
+
+DWA의 구현엔 동역학 모델이 필요하지 않았다.
+
+또한 DWA는 샘플링한 궤적중 비용이 가장 낮은 최적의 궤적 하나를 선택해 그 궤적대로 이동한다.
+
+하지만 MPPI는 모든 랜덤한 샘플링 궤적의 가중치 합으로 새로운 최적 제어값 u를 계산한다.
+
+제어입력 또한 달랐다. DWA는 선형 속도 v와 각속도 omega로 dynamic window를 생성해서 제어했다면, MPPI는 선형 가속도 a와 조향각 delta를 제어 입력으로 사용했다.
+
+
+
+
+
+![mppi3](https://github.com/user-attachments/assets/c7296403-b728-4788-8d27-42af13a3c919)
+
+Kinematic Bicycle Model 적용
+
+
+![mppi_dbm](https://github.com/user-attachments/assets/d6080866-2078-4484-9d3e-48c7be554e38)
+
+
+DBM 적용
+
+정해진 path를 하나하나 나아가면서 장애물을 회피하는 본래의 목적은 어느정도 달성했지만 추가적인 개선이 좀 필요해 보인다.
+
+
+
+1. 가끔씩 장애물을 회피하지 못하고 그대로 충돌하는 경우가 있다.
+2. 가중치를 계산할 때 목표 위치가 너무 멀어지면 가상 궤적들의 비용이 매우 커져 오류가 발생한다. 가중치나 비용의 데이터 타입 문제로 예상한다.
+3. DBM모델을 구성하는 식에서 Vx가 분모가 되는 경우가 많다. 즉, 로봇의 속도가 작아질수록 로봇의 상태가 갑자기 튀는 현상이 발생한다. DBM은 로봇이 일정 속도 이상일 때만 제대로 동작하는 것으로 생각한다.
+
+
+
+이후 DWA를 GAZEBO 환경으로 옮겨 시뮬레이션을 진행하였다. 여기서부턴 내용이 너무 길어져 다른 레포지토리에 정리하였다.
+
+# 고찰
+
+dwa와 mppi 알고리즘 모두 비용함수의 계수를 적절히 설정해야 하는데, pid튜닝 처럼 경험적으로 계수를 조정해야 해서 시간을 꽤 썼다. 
+
+DWA에서 참고한 문헌(https://jkimst.org/journal/view.php?doi=10.9766/KIMST.2021.24.1.061) 에는 강화학습을 이용하여 해당 계수를 튜닝하였다고 한다. mppi에도 비슷하게 적용이 가능할 것 같다.
+
 
 
 # 구현하면서 새로 공부한 파이썬 함수
@@ -181,7 +255,11 @@ closed된 노드를 open처럼 list로 관리하는게 아니라서 중복 검�
 A*를 구현하면서 알게 된 최적화 방법. 현재의 neighbor 셀이 이미 open 힙 자료구조에 있던 셀이고 neighbor의 비용이 기존위치의 비용보다 크게 계산되면 그냥 무시하도록 하는 부분.
 if any()와 그 속의 o_node for o_node in open 부분의 쓰임새를 알기까지 시간을 썻다.
 
+np.random.uniform : 균등분포로부터 랜덤한 값을 추출하는 함수<br/>
+np.random.normal : 정규분포로부터 랜덤한 값을 추출하는 함수. 
+
 DWA에서, robot_states라는 로봇의 상태를 저장하는 np.array형 변수가 있는데 이걸 여기저기 함수에 넣어서 사용했더니 calc_trajectory 함수에서 robot_state의 결과에 영향을 주기 시작했다. 
 해결법으로 np.copy(robot_states)로 robot_states를 그대로 집어넣지 않고 복사해서 해결하였다. 오류의 원인과 해결법을 알 때까지 시간을 꽤 사용했다..
+
 
 
