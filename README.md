@@ -171,7 +171,9 @@ https://www.youtube.com/watch?v=6fyUnoRxPvs
 
 논문에서의 pseudo code는 다음과 같다.
 
-![12412ed21ed21d1d](https://github.com/user-attachments/assets/d6a82d3b-2fe5-463d-9d16-c841b94cf573)
+![image](https://github.com/user-attachments/assets/36aa92dd-4f3a-4282-844d-34299c6d94cc)
+
+출처 : Model Predictive Path Integral Control using Covariance Variable Importance Sampling
 
 
 즉, 구현 방식은
