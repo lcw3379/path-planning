@@ -171,7 +171,7 @@ https://www.youtube.com/watch?v=6fyUnoRxPvs
 
 논문에서의 pseudo code는 다음과 같다.
 
-![12412ed21ed21d1d](https://github.com/user-attachments/assets/9f5a4180-dfa0-4e91-a5c0-e01509a86f64)
+![12412ed21ed21d1d](https://github.com/user-attachments/assets/d6a82d3b-2fe5-463d-9d16-c841b94cf573)
 
 
 즉, 구현 방식은
@@ -193,12 +193,14 @@ DWA의 구현엔 동역학 모델이 필요하지 않았다.
 
 하지만 MPPI는 모든 랜덤한 샘플링 궤적의 가중치 합으로 새로운 최적 제어값 u를 계산한다.
 
-![mppi3](https://github.com/user-attachments/assets/c7296403-b728-4788-8d27-42af13a3c919)
+![mppi3](https://github.com/user-attachments/assets/afa9124d-cbfb-46a1-b3dc-254c4b669288)
+
 
 Kinematic Bicycle Model 적용
 
 
-![mppi_dbm](https://github.com/user-attachments/assets/d6080866-2078-4484-9d3e-48c7be554e38)
+
+![mppi_dbm](https://github.com/user-attachments/assets/e01bda3e-21cb-4293-ae15-73d8651f1013)
 
 
 Dynamic Bicycle Model 적용
