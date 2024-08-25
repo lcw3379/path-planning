@@ -153,7 +153,7 @@ velocity는 취할 수 있는 가장 높은 속도를 선택한다.
 또한 장애물의 위치를 이미 다 인식하고 있다고 가정하기 때문에 먼 거리에서부터 장애물을 회피하려는 움직임이 보였다. 실제 환경에서 적용할 때엔 센서를 통해서 실시간으로 장애물을 인식하는 방법이 새로 필요하겠다.
 
 
-# Model Predictive Path Integral Control (MPPI)
+# 5. Model Predictive Path Integral Control (MPPI)
 
 Model Predictive Control 에 path intergral을 접목한 방식으로, 구현하려면 로봇의 동역학 모델과 MPC에 대한 지식이 필요했다.
 
